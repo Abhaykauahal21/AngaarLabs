@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/* Angaar type system — fonts are loaded in layout.tsx */
+@theme inline {
+  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-code: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+/* ── Base resets ─────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* margin/padding reset comes from Tailwind preflight (layered). An unlayered
+   `* { margin:0; padding:0 }` here would override every spacing utility. */
+
+html {
+  height: 100%;
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
+}
+
+body {
+  min-height: 100%;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #040302;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+/* ── Custom animations ───────────────────────────────────────────────── */
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+    opacity: var(--tw-opacity, 0.2);
+  }
+  33% {
+    transform: translateY(-18px) scale(1.2);
+    opacity: calc(var(--tw-opacity, 0.2) * 1.6);
+  }
+  66% {
+    transform: translateY(-8px) scale(0.9);
+    opacity: calc(var(--tw-opacity, 0.2) * 0.7);
+  }
+}
+
+@keyframes scrollLine {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+    opacity: 1;
+  }
+  51% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+    opacity: 0;
+  }
+}
+
+@keyframes emberPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes logoBreath {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px rgba(232, 74, 0, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(232, 74, 0, 0.8));
+  }
+}
+
+/* Utility: animate-float used by ambient particles */
+.animate-float {
+  animation: float linear infinite;
+}
+
+/* Logo breathing used in intro phase */
+.logo-breath {
+  animation: logoBreath 3s ease-in-out infinite;
+}
+
+/* Navbar flame logo */
+@keyframes flameFlicker {
+  0%,
+  100% {
+    transform: scale(1, 1) skewX(0deg);
+  }
+  20% {
+    transform: scale(0.96, 1.07) skewX(-2deg);
+  }
+  45% {
+    transform: scale(1.03, 0.97) skewX(1.5deg);
+  }
+  70% {
+    transform: scale(0.97, 1.05) skewX(-1deg);
+  }
+}
+
+@keyframes heatAura {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+}
+
+/* Sparks lifting off the burning fuse head */
+@keyframes emberRise {
+  0% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc(-50% + 8px), -22px) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Hero */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(320%) skewX(-20deg);
+  }
+}
+
+@keyframes ctaGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 18px rgba(255, 100, 0, 0.35), 0 0 0 0 rgba(255, 110, 0, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 34px rgba(255, 110, 0, 0.6), 0 0 0 10px rgba(255, 110, 0, 0);
+  }
+}
+
+/* Fire border beam gliding around navbar */
+@keyframes fireBorderBeam {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* Impact: heartbeat line that travels along the API-calls tile */
+@keyframes ekg {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+/* Impact: slow drifting embers */
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--dx, 20px), -140px, 0) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* Impact: ping ring on country nodes */
+@keyframes nodePing {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  80%,
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
